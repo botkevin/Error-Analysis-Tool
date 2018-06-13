@@ -1,14 +1,16 @@
 @echo off
 break=on
 
+rem change !!FILE!! and !!DESTINATION!! with actual names
+
 :begin
-rem number - 1 = time in seconds to wait
+if exist !!FILE!! goto cp
+goto error
+
+:cp
+copy !!FILE!! !!DESTINATION!!
+rem number - 1 = time in seconds to wait 
 PING localhost -n 6 >NUL
-if not exist #file#(
-   goto error
-) else ( 
-   copy #file#, #destination#
-)
 goto begin
 
 :error
