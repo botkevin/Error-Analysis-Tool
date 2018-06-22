@@ -7,7 +7,7 @@ import time
 # see constructor for details of params needed.
 # use the function run() to start the program.
 
-class err_parser:
+class Err_parse:
     month_dict={'Jan':1, 'Feb':2, 'Mar':3, 'Apr':4, 'May':5, 'Jun':6, 'Jul':7, 'Aug':8, 'Sep':9, 'Oct':10, 'Nov':11, 'Dec':12}
     
     #interval is in seconds
@@ -78,7 +78,7 @@ class err_parser:
 
     #udates the latest time that was read
     def update_p(self, data):
-        p_row = data[99]
+        p_row = data[len(data) - 1]
         last = p_row[0].split('.')
         self.p_month = err_parser.month_dict[last[0]]
         self.p_day = int(last[1])
