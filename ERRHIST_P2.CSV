@@ -1,0 +1,136 @@
+Error History
+Date,Time,Position,Level,Code,Content
+May.19,3:10,Xfer,2,322,Loader/Safety Sensor detected.                                              
+,,,,,Recovered after performing Home Position Movement.                          
+May.19,3:15,Xfer,2,251,Transfer robot/reset completion timeout error.                              
+May.19,12:13,Xfer,2,322,Loader/Safety Sensor detected.                                              
+,,,,,Recovered after performing Home Position Movement.                          
+May.19,12:13,Xfer,2,322,Loader/Safety Sensor detected.                                              
+,,,,,Recovered after performing Home Position Movement.                          
+May.19,12:14,Xfer,2,243,Transfer robot/Washer 2 wafer unloading timeout error.                      
+May.19,12:17,Xfer,2,372,Transfer Robot/Cassette not detected.                                       
+,,,,,The cassette was moved and the cassette sensor                              
+,,,,,detected cassette missing.                                                  
+May.19,12:21,Xfer,2,372,Transfer Robot/Cassette not detected.                                       
+,,,,,The cassette was moved and the cassette sensor                              
+,,,,,detected cassette missing.                                                  
+May.19,12:39,Xfer,2,140,No mapping data in designated cassette slot.                                
+,,,,,No mapping data in designated cassette or slot.                             
+May.19,12:40,Xfer,2,372,Transfer Robot/Cassette not detected.                                       
+,,,,,The cassette was moved and the cassette sensor                              
+,,,,,detected cassette missing.                                                  
+May.19,13:36,Xfer,2,130,Transfer robot/wafer in cassette 1 not detected.                            
+,,,,,When picking up wafer from Cassette 1, wafer not detected.                  
+May.19,13:36,Xfer,2,308,No mapping data for designated slot.                                        
+May.19,13:36,Xfer,2,308,No mapping data for designated slot.                                        
+May.19,13:36,Xfer,2,308,No mapping data for designated slot.                                        
+May.19,15:21,Xfer,5,528,Washer Error.                                                               
+,,,,,An abnormality occurs during the data transmission with the transfer        
+,,,,,microcomputer.                                                              
+May.19,21:32,Xfer,2,145,TP2 backside pressure abnormal.                                             
+,,,,,Abnormal high backside pressure detected at TP2 (VCS800), did               
+,,,,,not return to normal before Timeout.                                        
+May.19,21:34,AC,3,16,Ashing Chamber atmospheric pressure detection timeout error.                
+,,,,,After venting Ashing Chamber, ATM pressure (ATS468) not detected before     
+,,,,,Timeout.                                                                    
+May.20,0:27,Xfer,2,53,V10(AC main valve) closing movement timeout error.                          
+,,,,,Ashing Chamber Main Valve not detected in closed position by                
+,,,,,Closed Detection Sensor (LS432) before Timeout.                             
+May.20,0:34,Xfer,2,53,V10(AC main valve) closing movement timeout error.                          
+,,,,,Ashing Chamber Main Valve not detected in closed position by                
+,,,,,Closed Detection Sensor (LS432) before Timeout.                             
+May.20,3:29,Xfer,2,130,Transfer robot/wafer in cassette 1 not detected.                            
+,,,,,When picking up wafer from Cassette 1, wafer not detected.                  
+May.20,3:29,Xfer,2,308,No mapping data for designated slot.                                        
+May.20,3:29,Xfer,2,308,No mapping data for designated slot.                                        
+May.20,3:29,Xfer,2,308,No mapping data for designated slot.                                        
+May.20,3:29,Xfer,2,308,No mapping data for designated slot.                                        
+May.20,4:37,AC,3,200,Ashing pressure control error 1.                                            
+,,,,,During the Ashing sequence, Ashing pressure did not reach half of           
+,,,,,the Target Pressure before Timeout.                                         
+May.20,4:45,Xfer,2,145,TP2 backside pressure abnormal.                                             
+,,,,,Abnormal high backside pressure detected at TP2 (VCS800), did               
+,,,,,not return to normal before Timeout.                                        
+May.20,4:45,AC,3,200,Ashing pressure control error 1.                                            
+,,,,,During the Ashing sequence, Ashing pressure did not reach half of           
+,,,,,the Target Pressure before Timeout.                                         
+May.20,4:51,AC,3,231,Ashing Chamber high vacuum evacuation timeout error.                        
+,,,,,During the Ashing sequence, vacuum pressure (PEGS858/0.05 Pa) not           
+,,,,,detected before Timeout.                                                    
+May.20,5:45,AC,3,200,Ashing pressure control error 1.                                            
+,,,,,During the Ashing sequence, Ashing pressure did not reach half of           
+,,,,,the Target Pressure before Timeout.                                         
+May.20,5:49,Xfer,2,145,TP2 backside pressure abnormal.                                             
+,,,,,Abnormal high backside pressure detected at TP2 (VCS800), did               
+,,,,,not return to normal before Timeout.                                        
+May.20,5:49,AC,3,200,Ashing pressure control error 1.                                            
+,,,,,During the Ashing sequence, Ashing pressure did not reach half of           
+,,,,,the Target Pressure before Timeout.                                         
+May.20,6:7,AC,3,231,Ashing Chamber high vacuum evacuation timeout error.                        
+,,,,,During the Ashing sequence, vacuum pressure (PEGS858/0.05 Pa) not           
+,,,,,detected before Timeout.                                                    
+May.20,6:50,Xfer,2,372,Transfer Robot/Cassette not detected.                                       
+,,,,,The cassette was moved and the cassette sensor                              
+,,,,,detected cassette missing.                                                  
+May.20,6:51,Xfer,2,372,Transfer Robot/Cassette not detected.                                       
+,,,,,The cassette was moved and the cassette sensor                              
+,,,,,detected cassette missing.                                                  
+May.20,14:39,Xfer,2,313,Transfer robot/wafer chuck failure.                                         
+,,,,,Wafer detected on robot arm by the arm's photosensor, but not detected      
+,,,,,by the chuck sensor.                                                        
+May.20,14:41,Xfer,2,322,Loader/Safety Sensor detected.                                              
+,,,,,Recovered after performing Home Position Movement.                          
+May.21,6:12,EC,3,222,Source power abnormal.                                                      
+,,,,,Source power did not return to within tolerance levels before               
+,,,,,Timeout.                                                                    
+May.22,18:16,Xfer,2,308,No mapping data for designated slot.                                        
+May.22,20:13,Xfer,2,372,Transfer Robot/Cassette not detected.                                       
+,,,,,The cassette was moved and the cassette sensor                              
+,,,,,detected cassette missing.                                                  
+May.23,6:20,Xfer,5,902,It failed in the sending and receiving of the recipe between the Eq and WS. 
+May.27,21:41,Xfer,5,902,It failed in the sending and receiving of the recipe between the Eq and WS. 
+May.27,21:42,Xfer,5,905,Abnormality of the Washer recipe was detected.                              
+,,,,,Because the Washer recipe was the disagreement between equipment and the    
+,,,,,  Washer device, processing was not able to be started.                     
+May.27,23:37,Xfer,5,902,It failed in the sending and receiving of the recipe between the Eq and WS. 
+May.30,4:12,Xfer,2,545,Washer Error.                                                               
+,,,,,An abnormal flow rate of the cup back rinse.                                
+May.30,5:38,Xfer,2,154,Wafer clear completion timeout error.                                       
+,,,,,Wafer clear completion signal from Washer was not received before           
+,,,,,timeout.                                                                    
+May.30,5:43,Xfer,2,154,Wafer clear completion timeout error.                                       
+,,,,,Wafer clear completion signal from Washer was not received before           
+,,,,,timeout.                                                                    
+May.30,13:44,EC,3,35,Etching power supply unit 200 VAC abnormal.                                 
+,,,,,Power supply abnormality detected, did not recover before Timeout.          
+May.30,13:49,EC,4,34,Etching power supply unit fan failure.                                      
+,,,,,Fan failure detected (FAN51 to 53), did not recover before Timeout.         
+May.30,13:54,EC,2,315,Etching power supply unit fan failure.                                      
+,,,,,Fan failure detected (FAN51 to 53), did not recover before Timeout.         
+May.31,8:48,Xfer,2,34,RG3(EC gate valve) closing timeout error.                                   
+,,,,,Etch Chamber (EC) Gate Valve not detected in closed position by             
+,,,,,Closed Detection Sensor (LSR302/LSR304) before Timeout.                     
+May.31,8:49,Xfer,2,34,RG3(EC gate valve) closing timeout error.                                   
+,,,,,Etch Chamber (EC) Gate Valve not detected in closed position by             
+,,,,,Closed Detection Sensor (LSR302/LSR304) before Timeout.                     
+May.31,8:55,EC,2,3,RF   unit panel is opened.                                                  
+May.31,8:55,EC,2,3,RF   unit panel is opened.                                                  
+May.31,9:22,EC,2,3,RF   unit panel is opened.                                                  
+May.31,9:23,EC,2,3,RF   unit panel is opened.                                                  
+May.31,9:23,EC,2,3,RF   unit panel is opened.                                                  
+May.31,9:23,EC,2,3,RF   unit panel is opened.                                                  
+May.31,17:55,EC,2,121,TP1 (Etching Chamber pump) backside pressure error.                         
+,,,,,After abnormal backside pressure (VCS300/100 Pa) detected, did not          
+,,,,,recover before Timeout.                                                     
+May.31,17:55,EC,2,121,TP1 (Etching Chamber pump) backside pressure error.                         
+,,,,,After abnormal backside pressure (VCS300/100 Pa) detected, did not          
+,,,,,recover before Timeout.                                                     
+May.31,17:58,EC,2,121,TP1 (Etching Chamber pump) backside pressure error.                         
+,,,,,After abnormal backside pressure (VCS300/100 Pa) detected, did not          
+,,,,,recover before Timeout.                                                     
+May.31,17:58,EC,2,121,TP1 (Etching Chamber pump) backside pressure error.                         
+,,,,,After abnormal backside pressure (VCS300/100 Pa) detected, did not          
+,,,,,recover before Timeout.                                                     
+May.31,18:25,EC,2,121,TP1 (Etching Chamber pump) backside pressure error.                         
+,,,,,After abnormal backside pressure (VCS300/100 Pa) detected, did not          
+,,,,,recover before Timeout.                                                     

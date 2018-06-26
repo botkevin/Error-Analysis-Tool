@@ -2,6 +2,7 @@
 
 # @author https://askubuntu.com/users/68496/bobble
 
+# make sure the mount point exists
 if ! [ -e /media/floppy ]; then
     sudo mkdir /media/floppy
 fi
@@ -11,7 +12,7 @@ disks=($(udisks --enumerate |\
          sed 's_/org/freedesktop/UDisks/devices/__' |\
          grep 'sd'))
 
-# get mounts
+#get a list of mounted devices
 mounts=($(mount | grep '/dev/sd' | awk '{print $1}'))
 
 # work out which disk is not mounted (first one found - assume this is the fdd)

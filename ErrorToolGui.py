@@ -1,3 +1,7 @@
+##################
+### DEPRECATED ###
+##################
+
 #@author Kevin Shi
 #VERY basic gui to make it so any operator can use this program without any prior training
 #first ensures that you have entered the floppy and mounts it
@@ -20,7 +24,7 @@ def first_page():
 	def clicked():
 		btn.grid_forget()
 		second_page()
-		subprocess.call(["sh", mount_script_dir])
+		subprocess.call(["bash", mount_script_dir])
 	btn = tk.Button(window, text = "Floppy is inserted", command = clicked, font = "Arial 20")
 	btn.grid(row = 1, column = 1, pady = 150)
 	window.mainloop()
