@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS errorlog (
+	Date VARCHAR(6),
+	Time VARCHAR(5),
+	Position VARCHAR(20),
+	Level INT,
+	Code INT,
+	Content VARCHAR(500));
