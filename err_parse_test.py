@@ -1,21 +1,6 @@
-import err_parse as e
+import err_parse as ep
 import csv
 
-data = e.load('ERRHIST.csv')
-def test_load():
-    print('load')
-    for i in range(5):
-        print(data[i])
-        print('')
+e = ep.Err_parse("/media/floppy/ERRHIST.CSV", 60, "/home/pi/Desktop/errorTool/mount_f.sh", "/home/pi/Desktop/errorTool/umount_f.sh", "python", "python", "test", "errorlog")
 
-#test merger
-merge = []
-def test_merge():
-    global merge
-    print('merge')
-    merge = e.merge_content(data)
-    for i in range(5):
-        print(merge[i])
-
-test_load()
-test_merge()
+e.run()

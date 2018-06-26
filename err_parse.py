@@ -2,6 +2,8 @@ import csv
 import re
 from pathlib import Path
 import time
+import databaseInterface as db
+import subprocess
 
 # A data collection tool to analyze error history csv files to combine them into one document and update it continuously
 # see constructor for details of params needed.
@@ -12,21 +14,28 @@ class Err_parse:
     
     #interval is in seconds
     #@params directory filename to store the files in. The directory filename to open to find the data. The interval in seconds to poll the data.
-    def __init__(self, store_dir, open_dir, interval):
-        self.sto_dir = store_dir
+    def __init__(self, open_dir, interval, msd, umsd, user, pswd, db, table):
         self.inter = interval
         self.op_dir = open_dir
         self.p_month = 0
         self.p_day = 0
         self.p_time = 0
+        self.mount_script_dir = msd
+        self.umount_script_dir = umsd
+        self.user = user
+        self.pswd = pswd
+        self.db = db
+        self.table = table
 
     #load the data
-    def load(self, file_name):
+    def load(self):
+        subprocess.call(["bash", self.mount_script_dir])
         data = []
-        with open(file_name) as csvfile:
+        with open(self.op_dir) as csvfile:
             data = csv.reader(csvfile, delimiter=',')
             data = list(data)
         data = data[2:]
+        subprocess.call(["sh", self.umount_script_dir])
         return data
     
     #destructivly merges the content row of the log so that the contents are all in one line.
@@ -49,14 +58,19 @@ class Err_parse:
         for i in range(len(data)):
             row = data[i]
             first = row[0].split('.')
-            month = err_parser.month_dict[first[0]]
+            month = Err_parse.month_dict[first[0]]
             day = int(first[1])
             time = int(re.sub(':', '', row[1]))
-            if self.p_month < month and self.p_day < day and self.p_time < time:
+            if self.p_month < month:
+                return i
+            elif self.p_day < day and self.p_month == month:
+                return i
+            elif self.p_time < time and self.p_month == month and self.p_day == day: 
                 return i
         print("No new entries")
         return 100
 
+    #deprecated
     #writes data to csv
     def write(self, data, loc_name, option):
         f = None
@@ -72,27 +86,34 @@ class Err_parse:
             f.write(msg)
         f.close()
 
+    def write_db(self, data):
+        for row in data:
+            maria = db.database_interface(self.user, self.pswd, self.db, self.table)
+            maria.write(row)
+
     #stores latest 100 lines of data
     def cache(self, data):
         self.write(data, 'cache.csv', 'w')
 
     #udates the latest time that was read
     def update_p(self, data):
-        p_row = data[len(data) - 1]
+        p_row = data[-1]
         last = p_row[0].split('.')
-        self.p_month = err_parser.month_dict[last[0]]
+        self.p_month = Err_parse.month_dict[last[0]]
         self.p_day = int(last[1])
         self.p_time = int(re.sub(':', '', p_row[1]))
+        print('month: ' + str(self.p_month) + ', day: '+ str(self.p_day) + ', time: '+ str(self.p_time))
 
     #runs all of the above functions. Run this to start the program.
     def run(self):
         while True:
-            data = self.load(self.op_dir)
+
+            data = self.load()
             data = self.merge_content(data)
             self.cache(data)
             start_index = self.start(data)
             self.update_p(data)
             data = data[start_index:]
-            self.write(data, self.sto_dir, 'a')
+            self.write_db(data)
             data = []
             time.sleep(self.inter)

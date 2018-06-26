@@ -2,10 +2,13 @@ import mysql.connector as mariadb
 
 class database_interface:
 
-    def __init__(self, u, pswd, db)
+    def __init__(self, u, pswd, db, t):
         self.mariadb_connection = mariadb.connect(user = u, password = pswd, database = db)
-        self.cursor = mariadb_connection.cursor()
+        self.cursor = self.mariadb_connection.cursor()
+        self.table = t
 
-    def write(self, date, time, position, level, code, content)
-        cursor.execute("INSERT INTO errorlog VALUES (%s,%s,%s,%s,%s,%s)", (date, time, position, level, code, content))
-        mariadb_connection.commit()
+    #self, date, time, position, level, code, content
+    def write(self, data):
+        command = "INSERT INTO " + self.table + ' VALUES ("{0}", "{1}", "{2}", {3}, {4}, "{5}")'.format(*data)
+        self.cursor.execute(command)
+        self.mariadb_connection.commit()
