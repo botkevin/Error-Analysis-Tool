@@ -3,24 +3,8 @@
 # @author https://askubuntu.com/users/68496/bobble
 
 # make sure the mount point exists
-if ! [ -e /media/floppy ]; then
-    sudo mkdir /media/floppy
+if ! [ -e /media/$1 ]; then
+    sudo mkdir /media/$1
 fi
-
-# get a list of the available disks
-disks=($(udisks --enumerate |\
-         sed 's_/org/freedesktop/UDisks/devices/__' |\
-         grep 'sd'))
-
-#get a list of mounted devices
-mounts=($(mount | grep '/dev/sd' | awk '{print $1}'))
-
-# work out which disk is not mounted (first one found - assume this is the fdd)
-for disk in "${disks[@]}"; do
-    if ! for mount in "${mounts[@]}"; do echo $mount; done | grep -q $disk 
-    then
-        sudo mount -t vfat /dev/$disk /media/floppy -o uid=1000
-        echo fdd /dev/$disk mounted on /media/floppy
-        break
-    fi
-done
+sudo mount -t vfat /dev/$1 /media/$1 -o uid=1000
+echo fdd /dev/$1 mounted on /media/$1
