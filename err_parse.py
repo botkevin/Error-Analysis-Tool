@@ -14,7 +14,8 @@ class Err_parse:
     
     #interval is in seconds
     #@params directory filename to store the files in. The directory filename to open to find the data. The interval in seconds to poll the data.
-    def __init__(self, open_dir, interval, msd, umsd, user, pswd, db, table):
+    def __init__(self, port, open_dir, interval, msd, umsd, user, pswd, db, table):
+        self.port = port
         self.inter = interval
         self.op_dir = open_dir
         self.p_month = 0
@@ -29,7 +30,7 @@ class Err_parse:
 
     #load the data
     def load(self):
-        subprocess.call(["bash", self.mount_script_dir])
+        subprocess.call(["bash", self.mount_script_dir, self.port])
         data = []
         with open(self.op_dir) as csvfile:
             data = csv.reader(csvfile, delimiter=',')
