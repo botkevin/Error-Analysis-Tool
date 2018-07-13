@@ -36,7 +36,7 @@ class Err_parse:
             data = csv.reader(csvfile, delimiter=',')
             data = list(data)
         data = data[2:]
-        subprocess.call(["sh", self.umount_script_dir])
+        subprocess.call(["sh", self.umount_script_dir, self.port])
         return data
     
     #destructivly merges the content row of the log so that the contents are all in one line.
