@@ -2,8 +2,8 @@ import mysql.connector as mariadb
 
 class database_interface:
 
-    def __init__(self, u, pswd, db, t):
-        self.mariadb_connection = mariadb.connect(user = u, password = pswd, database = db)
+    def __init__(self, h, u, pswd, db, t):
+        self.mariadb_connection = mariadb.connect(host = h, user = u, password = pswd, database = db)
         self.cursor = self.mariadb_connection.cursor()
         self.table = t
 

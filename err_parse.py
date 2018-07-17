@@ -14,7 +14,7 @@ class Err_parse:
     
     #interval is in seconds
     #@params directory filename to store the files in. The directory filename to open to find the data. The interval in seconds to poll the data.
-    def __init__(self, port, open_filename, interval, msd, umsd, user, pswd, db, table):
+    def __init__(self, port, open_filename, interval, msd, umsd, host, user, pswd, db, table):
         self.port = port
         self.inter = interval
         self.op_file = open_filename
@@ -23,10 +23,7 @@ class Err_parse:
         self.p_time = 0
         self.mount_script_dir = msd
         self.umount_script_dir = umsd
-        self.user = user
-        self.pswd = pswd
-        self.db = db
-        self.table = table
+        self.maria = db.database_interface(host, user, pswd, db, table)
 
     #load the data
     def load(self):
@@ -89,8 +86,7 @@ class Err_parse:
 
     def write_db(self, data):
         for row in data:
-            maria = db.database_interface(self.user, self.pswd, self.db, self.table)
-            maria.write(row)
+            self.maria.write(row)
 
     #stores latest 100 lines of data
     def cache(self, data):
