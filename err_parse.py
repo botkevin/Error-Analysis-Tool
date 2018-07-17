@@ -29,7 +29,7 @@ class Err_parse:
     def load(self):
         subprocess.call(["bash", self.mount_script_dir, self.port])
         data = []
-	try:
+        try:
             with open('/media/'+self.port+'/'+self.op_file) as csvfile:
                 data = csv.reader(csvfile, delimiter=',')
                 data = list(data)
@@ -97,12 +97,13 @@ class Err_parse:
 
     #udates the latest time that was read
     def update_p(self, data):
-        p_row = data[-1]
-        last = p_row[0].split('.')
-        self.p_month = Err_parse.month_dict[last[0]]
-        self.p_day = int(last[1])
-        self.p_time = int(re.sub(':', '', p_row[1]))
-        # print('month: ' + str(self.p_month) + ', day: '+ str(self.p_day) + ', time: '+ str(self.p_time))
+        if data:
+            p_row = data[-1]
+            last = p_row[0].split('.')
+            self.p_month = Err_parse.month_dict[last[0]]
+            self.p_day = int(last[1])
+            self.p_time = int(re.sub(':', '', p_row[1]))
+            # print('month: ' + str(self.p_month) + ', day: '+ str(self.p_day) + ', time: '+ str(self.p_time))
 
     #runs all of the above functions. Run this to start the program.
     def run(self):
