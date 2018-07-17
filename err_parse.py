@@ -2,7 +2,7 @@ import csv
 import re
 from pathlib import Path
 import time
-import databaseInterface as db
+import databaseInterface as di
 import subprocess
 
 # A data collection tool to analyze error history csv files to combine them into one document and update it continuously
@@ -23,17 +23,20 @@ class Err_parse:
         self.p_time = 0
         self.mount_script_dir = msd
         self.umount_script_dir = umsd
-        self.maria = db.database_interface(host, user, pswd, db, table)
+        self.maria = di.database_interface(host, user, pswd, db, table)
 
     #load the data
     def load(self):
         subprocess.call(["bash", self.mount_script_dir, self.port])
         data = []
-        with open('/media/'+self.port+'/'+self.op_file) as csvfile:
-            data = csv.reader(csvfile, delimiter=',')
-            data = list(data)
-        data = data[2:]
-        subprocess.call(["sh", self.umount_script_dir, self.port])
+	try:
+            with open('/media/'+self.port+'/'+self.op_file) as csvfile:
+                data = csv.reader(csvfile, delimiter=',')
+                data = list(data)
+                data = data[2:]
+            subprocess.call(["sh", self.umount_script_dir, self.port])
+        except FileNotFoundError:
+            data = []
         return data
     
     #destructivly merges the content row of the log so that the contents are all in one line.
@@ -65,7 +68,7 @@ class Err_parse:
                 return i
             elif self.p_time < time and self.p_month == month and self.p_day == day: 
                 return i
-        print("No new entries")
+        # print("No new entries")
         return 100
 
     #deprecated
@@ -99,7 +102,7 @@ class Err_parse:
         self.p_month = Err_parse.month_dict[last[0]]
         self.p_day = int(last[1])
         self.p_time = int(re.sub(':', '', p_row[1]))
-        print('month: ' + str(self.p_month) + ', day: '+ str(self.p_day) + ', time: '+ str(self.p_time))
+        # print('month: ' + str(self.p_month) + ', day: '+ str(self.p_day) + ', time: '+ str(self.p_time))
 
     #runs all of the above functions. Run this to start the program.
     def run(self):

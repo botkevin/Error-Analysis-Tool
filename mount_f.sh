@@ -3,9 +3,8 @@
 # @author https://askubuntu.com/users/68496/bobble
 
 # make sure the mount point exists
-media=$(echo $1 | sed 's:.*/::')
-if ! [ -e /media/$media ]; then
-    sudo mkdir /media/$media
+if ! [ -e /media/$1 ]; then
+    sudo mkdir /media/$1
 fi
-sudo mount -t vfat $1 /media/$media -o uid=1000
-echo fdd $1 mounted on /media/$media
+sudo mount -t vfat /dev/$1 /media/$1 -o uid=1000
+echo fdd $1 mounted on /media/$1

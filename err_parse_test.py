@@ -1,6 +1,6 @@
 import err_parse as ep
 import csv
 
-e = ep.Err_parse("/dev/HHT01", "/media/floppy/ERRHIST.CSV", 60, "/home/pi/Desktop/errorTool/mount_f.sh", "/home/pi/Desktop/errorTool/umount_f.sh", "python", "python", "test", "errorlog")
+e = ep.Err_parse("HHT01", "ERRHIST.CSV", 20, "mount_f.sh", "umount_f.sh", "127.0.0.1", "root", "raspberry", "python", "errorlog")
 
 e.run()

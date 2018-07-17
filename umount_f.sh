@@ -1,7 +1,6 @@
 #!/bin/bash
 # unmount a floppy drive mounted on /media/floppy
 
-media=$(echo $1 | sed 's:.*/::')
-sudo umount /media/$media
-sudo rmdir /media/$media
-echo fdd unmounted from /media/$media
+sudo umount /media/$1
+sudo rmdir /media/$1
+echo fdd unmounted from /media/$1
