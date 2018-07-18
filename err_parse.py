@@ -126,4 +126,4 @@ class Err_parse:
         except KeyboardInterrupt:
             self.log('Closed Error Tool')
         except Exception as e:
-            self.log(str(e))
+            self.log(str(e) + ": " + str(e.message))
