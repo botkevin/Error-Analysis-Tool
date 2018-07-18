@@ -4,6 +4,7 @@ from pathlib import Path
 import time
 import databaseInterface as di
 import subprocess
+import datetime
 
 # A data collection tool to analyze error history csv files to combine them into one document and update it continuously
 # see constructor for details of params needed.
@@ -24,6 +25,10 @@ class Err_parse:
         self.mount_script_dir = msd
         self.umount_script_dir = umsd
         self.maria = di.database_interface(host, user, pswd, db, table)
+	self.log('Error tool start')
+
+    def log(self, msg):
+        self.maria.log(str(datetime.datetime.now(), self.port, msg)
 
     #load the data
     def load(self):
@@ -107,14 +112,18 @@ class Err_parse:
 
     #runs all of the above functions. Run this to start the program.
     def run(self):
-        while True:
-
-            data = self.load()
-            data = self.merge_content(data)
-            self.cache(data)
-            start_index = self.start(data)
-            self.update_p(data)
-            data = data[start_index:]
-            self.write_db(data)
-            data = []
-            time.sleep(self.inter)
+	try:
+            while True:
+                data = self.load()
+                data = self.merge_content(data)
+                self.cache(data)
+                start_index = self.start(data)
+                self.update_p(data)
+                data = data[start_index:]
+                self.write_db(data)
+                data = []
+                time.sleep(self.inter)
+        except KeyboardInterrupt:
+            self.log('Closed Error Tool')
+        except Exception as e:
+            self.log(str(e))
