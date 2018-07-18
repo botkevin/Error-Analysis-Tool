@@ -7,7 +7,9 @@ This programs is meant to read error messages from floppy drives, format it, and
 - pathlib
 - time
 - subprocess
+- datetime
 - mysql.connector
+
 mysql.connector is not a part of the python standard library
 
 ## ```err-parse.py```
@@ -15,9 +17,19 @@ This program creates an object that manages one floppy drive each. The program w
 
 ### Initializing err_parse
 #### Initializing requires several parameters
-- interval: interval to check the floppy drives for content
+##### Example
+Running: 
+```python
+e = ep.Err_parse("HHT01", "ERRHIST.CSV", 20, "~/mount_f.sh", "~/umount_f.sh", "127.0.0.1", "root", "raspberry", "python", "errorlog")
+```
+- port: device name/tool name(see UDEV.md for renaming devices). /dev/ is appended to the name for device name
+        - In the example, the device is ```/dev/HTT01```
 - open_filename: name of the file that needs to be opened in the floppy
+        - File inside of the floppy is ```ERRHIST.CSV```
+- interval: interval to check the floppy drives for content
+        - Interval is 20 seconds in this example
 - msd: the mount script directory, in other words the path of mount.sh
+        - File is called ```mount_f.sh``` in the home directory.
 - umsd: the unmount script directory, in other words the path of umount.sh
 - user: username of sql server
 - pswd: password of sql server
@@ -25,7 +37,4 @@ This program creates an object that manages one floppy drive each. The program w
 - t : table name to store the data in
         
 #### Example
-Running: 
-```python
-e = ep.Err_parse("ERRHIST.CSV", 60, "/home/pi/Desktop/errorTool/mount_f.sh", "/home/pi/Desktop/errorTool/umount_f.sh", "user1", "hunter2", "logdb", "errorlog")
-```
+
