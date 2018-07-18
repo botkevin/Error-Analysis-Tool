@@ -1,7 +1,12 @@
-CREATE TABLE IF NOT EXISTS errorlog (
+CREATE TABLE IF NOT EXISTS HHT01ErrorLog (
 	Date VARCHAR(6),
 	Time VARCHAR(5),
 	Position VARCHAR(20),
 	Level INT,
 	Code INT,
 	Content VARCHAR(500));
+	
+CREATE TABLE IF NOT EXISTS errortoollog (
+	ts DATETIME,
+	tool VARCHAR(32),
+	message VARCHAR(150));
