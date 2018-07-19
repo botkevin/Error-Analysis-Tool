@@ -1,5 +1,5 @@
 # Error-Analysis-Tool
-This programs is meant to read error messages from floppy drives, format it, and direct it to the correct databse for collecting errors
+This programs is meant to read error messages from floppy drives, format it, and direct it to the correct database for collecting errors
 
 ## Dependencies
 - csv
@@ -16,11 +16,10 @@ mysql.connector is not a part of the python standard library
 This program creates an object that manages one floppy drive each. The program will mount, read, and send data in the floppy drive to a database. First create the err_parse object and call the method ```.run()``` on the object.
 
 ### How to Use
-After running the program, the program will check the floppy disk for the file every interval. Once it does find a file, it checks the timestamp so only more recent logs can be uploaded into the sql server. The program will also format multiline error comments into a one line comment for ease of storage. No interaction is needed on the 
+After running the program, the program will check the floppy disk for the file every interval. Once it does find a file, it checks the timestamp so only more recent logs can be uploaded into the sql server. The program will also format multiline error comments into a one line comment for ease of storage. No interaction is needed on the user's end except to plug in the floppy drive and leave it inside for at least one interval.
 
 ### Initializing err_parse
 #### Initializing requires several parameters
-##### Example
 Running: 
 ```python
 e = ep.Err_parse("HHT01", "ERRHIST.CSV", 20, "~/mount_f.sh", "~/umount_f.sh", "127.0.0.1", "root", "raspberry", "test", "errorlog", "statuslog")
@@ -46,6 +45,6 @@ e = ep.Err_parse("HHT01", "ERRHIST.CSV", 20, "~/mount_f.sh", "~/umount_f.sh", "1
 - lt: log table name to keep track of the status of the error analysis program
   - log table name is statuslog
   
-  TODO: make update previous time only quert sql if there is data
-  no echo for mount and umount scripts
-  test if it actually works
+TODO: make update previous time only query sql if there is data
+no echo for mount and umount scripts
+test if it actually works
