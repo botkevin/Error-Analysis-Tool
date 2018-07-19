@@ -15,20 +15,18 @@ class Err_parse:
     
     #interval is in seconds
     #@params directory filename to store the files in. The directory filename to open to find the data. The interval in seconds to poll the data.
-    def __init__(self, port, open_filename, interval, msd, umsd, host, user, pswd, db, table):
+    def __init__(self, port, open_filename, interval, msd, umsd, host, user, pswd, db, table, lt):
         self.port = port
         self.inter = interval
         self.op_file = open_filename
-        self.p_month = 0
-        self.p_day = 0
-        self.p_time = 0
+        self.ptime = datetime.min
         self.mount_script_dir = msd
         self.umount_script_dir = umsd
-        self.maria = di.database_interface(host, user, pswd, db, table)
-	self.log('Error tool start')
+        self.maria = di.database_interface(host, user, pswd, db, table, lt)
+        self.log('Error tool start')
 
     def log(self, msg):
-        self.maria.log(str(datetime.datetime.now(), self.port, msg)
+        self.maria.log(str(datetime.datetime.now()), self.port, msg)
 
     #load the data
     def load(self):
@@ -66,15 +64,13 @@ class Err_parse:
             first = row[0].split('.')
             month = Err_parse.month_dict[first[0]]
             day = int(first[1])
-            time = int(re.sub(':', '', row[1]))
-            if self.p_month < month:
-                return i
-            elif self.p_day < day and self.p_month == month:
-                return i
-            elif self.p_time < time and self.p_month == month and self.p_day == day: 
+            year = datetime.date.today().year
+            time = row[1].split(':')
+            now_time = datetime.datetime(year, month, day, hour = time[0], minute = time[1])
+            if self.ptime < now_time:
                 return i
         # print("No new entries")
-        return 100
+        return len(data)
 
     #deprecated
     #writes data to csv
@@ -101,18 +97,15 @@ class Err_parse:
         self.write(data, 'cache.csv', 'w')
 
     #udates the latest time that was read
-    def update_p(self, data):
-        if data:
-            p_row = data[-1]
-            last = p_row[0].split('.')
-            self.p_month = Err_parse.month_dict[last[0]]
-            self.p_day = int(last[1])
-            self.p_time = int(re.sub(':', '', p_row[1]))
+    def update_p(self):
+        date = self.maria.get_start()
+        if date:
+            self.ptime = date
             # print('month: ' + str(self.p_month) + ', day: '+ str(self.p_day) + ', time: '+ str(self.p_time))
 
     #runs all of the above functions. Run this to start the program.
     def run(self):
-	try:
+        try:
             while True:
                 data = self.load()
                 data = self.merge_content(data)
