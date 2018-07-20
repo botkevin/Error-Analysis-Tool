@@ -1,26 +1,28 @@
 import mysql.connector as mariadb
 import datetime
 
+
 class database_interface:
 
     month_dict={'Jan':'01', 'Feb':'02', 'Mar':'03', 'Apr':'04', 'May':'05', 'Jun':'06', 'Jul':'07', 'Aug':'08', 'Sep':'09', 'Oct':'10', 'Nov':'11', 'Dec':'12'}
 
-    def __init__(self, h, u, pswd, db, t, lt):
+    def __init__(self, h, u, pswd, db, t, lt, tool):
         self.mariadb_connection = mariadb.connect(host = h, user = u, password = pswd, database = db)
         self.cursor = self.mariadb_connection.cursor()
         self.table = t
         self.lt = lt
+        self.tool = tool
 
     #self, date, time, position, level, code, content
     def write(self, data):
         last = data[0].split('.')
-        month = Err_parse.month_dict[last[0]]
+        month = database_interface.month_dict[last[0]]
         day = last[1]
         time = data[1]
         year = str(datetime.date.today().year)
         ts = year + '-' + month + '-' + day + ' ' + time + ':00'
-        command = 'INSERT INTO ' + self.table + '(ts, position, level, code, content) VALUES ("' + \
-                  ts + '", "' + data[2] + '", "' + data[3] + '", "' + data[4] + '", "' + data[5] + '")'
+        command = 'INSERT INTO ' + self.table + '(ts, position, level, code, content, tool) VALUES ("' + \
+                  ts + '", "' + data[2] + '", "' + data[3] + '", "' + data[4] + '", "' + data[5] + '", "' + self.tool + '")'
         self.cursor.execute(command)
         self.mariadb_connection.commit()
 
@@ -31,9 +33,13 @@ class database_interface:
 
     def get_start(self):
         rv = ''
-        command = 'SELECT ts FROM ' + self.t + 'ORDER BY TS DESC LIMIT 1'
+        command = 'SELECT ts FROM ' + self.table + ' WHERE tool = "' + self.tool + '" ORDER BY ts DESC LIMIT 1'
         self.cursor.execute(command)
         for ts in self.cursor:
             rv = ts
-        return rv
+        print(rv)
+        if rv:
+            return rv[0]
+        else:
+            return None
         

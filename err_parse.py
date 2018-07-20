@@ -5,6 +5,7 @@ import time
 import databaseInterface as di
 import subprocess
 import datetime
+import traceback
 
 # A data collection tool to analyze error history csv files to combine them into one document and update it continuously
 # see constructor for details of params needed.
@@ -19,10 +20,10 @@ class Err_parse:
         self.port = port
         self.inter = interval
         self.op_file = open_filename
-        self.ptime = datetime.min
+        self.ptime = datetime.datetime.min
         self.mount_script_dir = msd
         self.umount_script_dir = umsd
-        self.maria = di.database_interface(host, user, pswd, db, table, lt)
+        self.maria = di.database_interface(host, user, pswd, db, table, lt, port)
         self.log('Error tool start')
 
     def log(self, msg):
@@ -62,11 +63,11 @@ class Err_parse:
         for i in range(len(data)):
             row = data[i]
             first = row[0].split('.')
-            month = Err_parse.month_dict[first[0]]
+            month = int(Err_parse.month_dict[first[0]])
             day = int(first[1])
             year = datetime.date.today().year
             time = row[1].split(':')
-            now_time = datetime.datetime(year, month, day, hour = time[0], minute = time[1])
+            now_time = datetime.datetime(year, month, day, hour = int(time[0]), minute = int(time[1]))
             if self.ptime < now_time:
                 return i
         # print("No new entries")
@@ -110,8 +111,8 @@ class Err_parse:
                 data = self.load()
                 data = self.merge_content(data)
                 self.cache(data)
+                self.update_p()
                 start_index = self.start(data)
-                self.update_p(data)
                 data = data[start_index:]
                 self.write_db(data)
                 data = []
@@ -119,4 +120,6 @@ class Err_parse:
         except KeyboardInterrupt:
             self.log('Closed Error Tool')
         except Exception as e:
-            self.log(str(e) + ": " + str(e.message))
+            self.log(str(e) + ": " + str(traceback.extract_tb))
+            raise e
+            #self.log(str(e) + ": " + str(e.message))
