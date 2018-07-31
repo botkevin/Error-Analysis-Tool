@@ -7,11 +7,14 @@ class database_interface:
     month_dict={'Jan':'01', 'Feb':'02', 'Mar':'03', 'Apr':'04', 'May':'05', 'Jun':'06', 'Jul':'07', 'Aug':'08', 'Sep':'09', 'Oct':'10', 'Nov':'11', 'Dec':'12'}
 
     def __init__(self, h, u, pswd, db, t, lt, tool):
-        self.mariadb_connection = mariadb.connect(host = h, user = u, password = pswd, database = db)
-        self.cursor = self.mariadb_connection.cursor()
-        self.table = t
-        self.lt = lt
-        self.tool = tool
+        try:
+            self.mariadb_connection = mariadb.connect(host = h, user = u, password = pswd, database = db)
+            self.cursor = self.mariadb_connection.cursor()
+            self.table = t
+            self.lt = lt
+            self.tool = tool
+        except Exception as e:
+            raise NotImplementedError
 
     #self, date, time, position, level, code, content
     def write(self, data):
