@@ -71,7 +71,7 @@ class Err_parse:
     #writes log to csv
     def write(self, msg):
         with open(self.ld, 'a') as csvfile:
-            csvfile.write(str(datetime.datetime.now()) + ', ' + self.port + ', msg')
+            csvfile.write(str(datetime.datetime.now()) + ', ' + self.port + ', msg' + '/n')
 
     def write_db(self, data):
         for row in data:
