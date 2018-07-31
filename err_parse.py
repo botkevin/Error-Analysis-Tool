@@ -1,13 +1,3 @@
-import csv
-import re
-from pathlib import Path
-import time
-import databaseInterface as di
-import subprocess
-import datetime
-import traceback
-
-# A data collection tool to analyze error history csv files to combine them into one document and update it continuously
 # see constructor for details of params needed.
 # use the function run() to start the program.
 
@@ -16,18 +6,23 @@ class Err_parse:
     
     #interval is in seconds
     #@params directory filename to store the files in. The directory filename to open to find the data. The interval in seconds to poll the data.
-    def __init__(self, port, open_filename, interval, msd, umsd, host, user, pswd, db, table, lt):
+    def __init__(self, port, open_filename, interval, msd, umsd, host, user, pswd, db, table, lt, log_dir):
         self.port = port
         self.inter = interval
         self.op_file = open_filename
         self.ptime = datetime.datetime.min
         self.mount_script_dir = msd
         self.umount_script_dir = umsd
-        self.maria = di.database_interface(host, user, pswd, db, table, lt, port)
+        self.ld = log_dir
+        try:
+            self.maria = di.database_interface(host, user, pswd, db, table, lt, port)
+        except NotImplementedError:
+            self.write('sql login failed')
         self.log('Error tool start')
 
     def log(self, msg):
         self.maria.log(str(datetime.datetime.now()), self.port, msg)
+        self.write(msg)
 
     #load the data
     def load(self):
@@ -73,21 +68,10 @@ class Err_parse:
         # print("No new entries")
         return len(data)
 
-    #deprecated
-    #writes data to csv
-    def write(self, data, loc_name, option):
-        f = None
-        my_file = Path(loc_name)
-        if my_file.is_file():
-            f = open(loc_name, option)
-        else:
-            f = open(loc_name, 'w')
-            f.write('Error History\n')
-            f.write('Date, Time, Position, Level, Code, Content\n')
-        for row in data:
-            msg = row[0] + ', ' + row[1] + ', ' + row[2] + ', ' + row[3] + ', ' + row[4] + ', ' + row[5] + '\n'
-            f.write(msg)
-        f.close()
+    #writes log to csv
+    def write(self, msg):
+        with open(self.ld, 'a') as csvfile:
+            csvfile.write(str(datetime.datetime.now()) + ', ' + self.port + ', msg')
 
     def write_db(self, data):
         for row in data:
