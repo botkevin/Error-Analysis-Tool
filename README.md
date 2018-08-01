@@ -45,6 +45,6 @@ e = ep.Err_parse("HHT01", "ERRHIST.CSV", 20, "~/mount_f.sh", "~/umount_f.sh", "1
 - lt: log table name to keep track of the status of the error analysis program
   - log table name is statuslog
   
-TODO: make update previous time only query sql if there is data
-no echo for mount and umount scripts
-test if it actually works
+Important files for working are: ```databaseInterface.py```, ```err_parse.py```, ```mount_f.sh```, ```umount_f.sh```
+
+```hht01.py``` is useful as an example for how to run the program, 
