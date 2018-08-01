@@ -1,3 +1,13 @@
+import csv
+import re
+from pathlib import Path
+import time
+import databaseInterface as di
+import subprocess
+import datetime
+import traceback
+
+# A data collection tool to analyze error history csv files to combine them into one document and update it continuously
 # see constructor for details of params needed.
 # use the function run() to start the program.
 
@@ -23,8 +33,8 @@ class Err_parse:
         except NotImplementedError:
             self.write('sql login failed')
             time.sleep(20)
-            self.connect_db(host, user, pswd, db, table, lt, port)
-        
+            self.connect_db()
+
     def log(self, msg):
         self.maria.log(str(datetime.datetime.now()), self.port, msg)
         self.write(msg)
@@ -81,7 +91,8 @@ class Err_parse:
     def write_db(self, data):
         for row in data:
             self.maria.write(row)
-
+            
+    #deprecated and doesn't work
     #stores latest 100 lines of data
     def cache(self, data):
         self.write(data, 'cache.csv', 'w')
@@ -99,10 +110,10 @@ class Err_parse:
             while True:
                 data = self.load()
                 data = self.merge_content(data)
-                self.cache(data)
                 self.update_p()
                 start_index = self.start(data)
                 data = data[start_index:]
+                print(data)
                 self.write_db(data)
                 data = []
                 time.sleep(self.inter)
