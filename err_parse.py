@@ -14,12 +14,17 @@ class Err_parse:
         self.mount_script_dir = msd
         self.umount_script_dir = umsd
         self.ld = log_dir
+        self.connect_db()
+        self.log('Error tool start')
+
+    def connect_db(self):
         try:
             self.maria = di.database_interface(host, user, pswd, db, table, lt, port)
         except NotImplementedError:
             self.write('sql login failed')
-        self.log('Error tool start')
-
+            time.sleep(20)
+            self.connect_db()
+        
     def log(self, msg):
         self.maria.log(str(datetime.datetime.now()), self.port, msg)
         self.write(msg)
