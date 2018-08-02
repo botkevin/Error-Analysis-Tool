@@ -45,4 +45,7 @@ class database_interface:
             return rv[0]
         else:
             return None
+
+    def close(self):
+        self.mariadb_connection.close()
         

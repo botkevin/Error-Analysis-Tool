@@ -44,13 +44,17 @@ class Err_parse:
         subprocess.call(["bash", self.mount_script_dir, self.port])
         data = []
         try:
-            with open('/media/'+self.port+'/'+self.op_file) as csvfile:
-                data = csv.reader(csvfile, delimiter=',')
-                data = list(data)
-                data = data[2:]
-            subprocess.call(["sh", self.umount_script_dir, self.port])
+            csvfile = open('/media/'+self.port+'/'+self.op_file, 'r')
+            print('in with')
+            data = csv.reader(csvfile, delimiter=',')
+            data = list(data)
+            data = data[2:]
+            csvfile.close()
         except FileNotFoundError:
+            print('except')
             data = []
+        subprocess.call(["sh", self.umount_script_dir, self.port])
+        print(data)
         return data
     
     #destructivly merges the content row of the log so that the contents are all in one line.
@@ -119,7 +123,7 @@ class Err_parse:
                 time.sleep(self.inter)
         except KeyboardInterrupt:
             self.log('Closed Error Tool')
+            self.maria.close()
         except Exception as e:
             self.log(str(e) + ": " + str(traceback.extract_tb))
-            raise e
-            #self.log(str(e) + ": " + str(e.message))
+            self.log(str(e) + ": " + str(e.message))
